@@ -2,14 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_statemanagement/home_screen.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
 //Types of providers in riverpod
-//provider
+//Provider
+//StateProvider
+
 final greetingsProvider =
     Provider<String>((ref) => "Welcome to State management");
+
+final nameProvider = StateProvider<String?>((ref) => " ");
+
+void main() {
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -17,11 +25,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const ProviderScope(
-      child: MaterialApp(
-        title: "Riverpod",
-        home: HomeScreen(),
-      ),
+    return const MaterialApp(
+      title: "Riverpod",
+      home: HomeScreen(),
     );
   }
 }

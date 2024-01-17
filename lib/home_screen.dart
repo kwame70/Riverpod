@@ -5,6 +5,10 @@ import 'package:riverpod_statemanagement/main.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  void onChanged(WidgetRef ref, String value) {
+    ref.read(nameProvider.notifier).update((state) => value);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,8 +18,20 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Consumer(builder: (context, ref, child) {
         final greetings = ref.watch(greetingsProvider);
+
+        final name = ref.watch(nameProvider) ?? "";
         return Center(
-          child: Text("Hey! $greetings"),
+          child: Column(
+            children: [
+              Text("Hey!$name $greetings"),
+              const SizedBox(
+                height: 10,
+              ),
+              TextField(
+                onChanged: (value) => onChanged(ref, value),
+              ),
+            ],
+          ),
         );
       }),
     );
