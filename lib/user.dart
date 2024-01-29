@@ -27,3 +27,12 @@ class UserName extends StateNotifier<String> {
     state = val;
   }
 }
+
+class UserNotifierChange extends ChangeNotifier {
+  User user = const User(name: "", age: 0);
+
+  void updateName(String val) {
+    user = user.copyWith(name: val);
+    notifyListeners();
+  }
+}

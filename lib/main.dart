@@ -7,6 +7,7 @@ import 'package:riverpod_statemanagement/user.dart';
 //Provider
 //StateProvider
 //StateNotifier and StateNotifierProvider
+//ChangeNotifierProvider - not recommended
 
 final greetingsProvider =
     Provider<String>((ref) => "Welcome to State management");
@@ -21,6 +22,9 @@ final userProvider =
 // final userNameProvider = StateNotifierProvider<UserName, String>(
 //   (ref) => UserName(""),
 // );
+
+final userChangeNotifierProvider =
+    ChangeNotifierProvider((ref) => UserNotifierChange());
 
 void main() {
   runApp(

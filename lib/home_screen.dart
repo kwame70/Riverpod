@@ -8,7 +8,8 @@ class HomeScreen extends StatelessWidget {
   void onChanged(WidgetRef ref, String value) {
     // ref.read(nameProvider.notifier).update((state) => value);
     // ref.read(userProvider.notifier).updateName(value);
-    ref.read(userProvider.notifier).updateName(value);
+    // ref.read(userProvider.notifier).updateName(value);
+    ref.read(userChangeNotifierProvider).updateName(value);
   }
 
   @override
@@ -24,13 +25,14 @@ class HomeScreen extends StatelessWidget {
 
         // final name = ref.watch(nameProvider) ?? "";
 
-        final user = ref.watch(userProvider);
+        // final user = ref.watch(userProvider);
         // final user = ref.watch(userProvider.select((value) => value.name));-
         // rebuilds widgets only when a particular property is changed.
+        final userChange = ref.watch(userChangeNotifierProvider).user;
         return Center(
           child: Column(
             children: [
-              Text("Hey!${user.name} $greetings"),
+              Text("Hey!${userChange.name} $greetings"),
               const SizedBox(
                 height: 10,
               ),
