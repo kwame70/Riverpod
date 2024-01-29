@@ -1,17 +1,22 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+@immutable
 class User {
-  String name;
-  int age;
+  final String name;
+  final int age;
 
-  User({required this.name, required this.age});
+  const User({required this.name, required this.age});
+
+  User copyWith({String? name, int? age}) =>
+      User(name: name ?? this.name, age: age ?? this.age);
 }
 
 class UserNotifier extends StateNotifier<User> {
   UserNotifier(super.state);
 
   void updateName(String val) {
-    state = User(name: val, age: 5);
+    state = state.copyWith(name: val);
   }
 }
 
