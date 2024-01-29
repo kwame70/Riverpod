@@ -25,6 +25,8 @@ class HomeScreen extends StatelessWidget {
         // final name = ref.watch(nameProvider) ?? "";
 
         final user = ref.watch(userProvider);
+        // final user = ref.watch(userProvider.select((value) => value.name));-
+        // rebuilds widgets only when a particular property is changed.
         return Center(
           child: Column(
             children: [

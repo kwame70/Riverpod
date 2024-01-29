@@ -13,11 +13,10 @@ final greetingsProvider =
 
 final nameProvider = StateProvider<String?>((ref) => " ");
 
-final userProvider = StateNotifierProvider<UserNotifier, User>(
-  (ref) => UserNotifier(
-    (const User(name: " ", age: 12)),
-  ),
-);
+final userProvider =
+    StateNotifierProvider<UserNotifier, User>((ref) => UserNotifier(
+          (const User(name: "Bob", age: 12)),
+        ));
 
 // final userNameProvider = StateNotifierProvider<UserName, String>(
 //   (ref) => UserName(""),
