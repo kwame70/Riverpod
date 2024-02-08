@@ -12,9 +12,8 @@ import 'package:riverpod_statemanagement/user.dart';
 //FutureProvider
 
 final fetchUserProvider = FutureProvider((ref) {
-  const url = "https://jsonplaceholder.typicode.com/users/1";
-
-  return http.get(Uri.parse(url)).then((value) => User.fromJson(value.body));
+  final userRepository = ref.watch(userRepositoryProvider);
+  return userRepository.fetchUserData();
 });
 
 void main() {
