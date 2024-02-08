@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_statemanagement/home_screen.dart';
+import 'package:http/http.dart' as http;
 import 'package:riverpod_statemanagement/user.dart';
 
 //Types of providers in riverpod
@@ -8,23 +9,13 @@ import 'package:riverpod_statemanagement/user.dart';
 //StateProvider
 //StateNotifier and StateNotifierProvider
 //ChangeNotifierProvider - not recommended
+//FutureProvider
 
-final greetingsProvider =
-    Provider<String>((ref) => "Welcome to State management");
+final fetchUserProvider = FutureProvider((ref) {
+  const url = "https://jsonplaceholder.typicode.com/users/1";
 
-final nameProvider = StateProvider<String?>((ref) => " ");
-
-final userProvider =
-    StateNotifierProvider<UserNotifier, User>((ref) => UserNotifier(
-          (const User(name: "Bob", age: 12)),
-        ));
-
-// final userNameProvider = StateNotifierProvider<UserName, String>(
-//   (ref) => UserName(""),
-// );
-
-final userChangeNotifierProvider =
-    ChangeNotifierProvider((ref) => UserNotifierChange());
+  return http.get(Uri.parse(url)).then((value) => User.fromJson(value.body));
+});
 
 void main() {
   runApp(

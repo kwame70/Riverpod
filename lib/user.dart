@@ -1,38 +1,20 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 @immutable
 class User {
   final String name;
-  final int age;
+  final String email;
 
-  const User({required this.name, required this.age});
+  const User({required this.name, required this.email});
 
-  User copyWith({String? name, int? age}) =>
-      User(name: name ?? this.name, age: age ?? this.age);
-}
+  // User copyWith({String? name, int? age}) =>
+  //     User(name: name ?? this.name, age: age ?? this.age);
 
-class UserNotifier extends StateNotifier<User> {
-  UserNotifier(super.state);
-
-  void updateName(String val) {
-    state = state.copyWith(name: val);
+  factory User.fromMap(Map<String, dynamic> map) {
+    return User(name: map["name"] ?? "", email: map["email"] ?? "");
   }
-}
 
-class UserName extends StateNotifier<String> {
-  UserName(super._state);
-
-  void updateUser(String val) {
-    state = val;
-  }
-}
-
-class UserNotifierChange extends ChangeNotifier {
-  User user = const User(name: "", age: 0);
-
-  void updateName(String val) {
-    user = user.copyWith(name: val);
-    notifyListeners();
-  }
+  factory User.fromJson(String source) => User.fromMap(jsonDecode(source));
 }
