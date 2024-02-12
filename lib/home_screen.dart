@@ -7,37 +7,57 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ref.watch(fetchUserProvider).when(
-      data: (data) {
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text("Riverpod State management"),
-            centerTitle: true,
-          ),
-          body: Center(
-            child: Column(
-              children: [
-                Text(data.name),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(data.email),
-              ],
-            ),
+    // return ref.watch(fetchUserProvider).when(
+    //   data: (data) {
+    //     return Scaffold(
+    //       appBar: AppBar(
+    //         title: const Text("Riverpod State management"),
+    //         centerTitle: true,
+    //       ),
+    //       body: Center(
+    //         child: Column(
+    //           children: [
+    //             Text(data.name),
+    //             const SizedBox(
+    //               height: 10,
+    //             ),
+    //             Text(data.email),
+    //           ],
+    //         ),
+    //       ),
+    //     );
+    //   },
+    //   error: (error, stackTrace) {
+    //     return Scaffold(
+    //         body: Center(
+    //       child: Text(error.toString()),
+    //     ));
+    //   },
+    //   loading: () {
+    //     return const Scaffold(
+    //       body: Center(child: CircularProgressIndicator()),
+    //     );
+    //   },
+    // );
+
+    return Scaffold(
+      body: ref.watch(streamProvider).when(data: (data) {
+        return Center(
+          child: Text(
+            data.toString(),
           ),
         );
-      },
-      error: (error, stackTrace) {
-        return Scaffold(
-            body: Center(
-          child: Text(error.toString()),
-        ));
-      },
-      loading: () {
-        return const Scaffold(
-          body: Center(child: CircularProgressIndicator()),
+      }, error: (error, stackTrace) {
+        return Center(
+          child: Text(
+            error.toString(),
+          ),
         );
-      },
+      }, loading: () {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }),
     );
   }
 }

@@ -10,10 +10,22 @@ import 'package:riverpod_statemanagement/user.dart';
 //StateNotifier and StateNotifierProvider
 //ChangeNotifierProvider - not recommended
 //FutureProvider
+//StreamProvider
 
 final fetchUserProvider = FutureProvider((ref) {
   final userRepository = ref.watch(userRepositoryProvider);
   return userRepository.fetchUserData();
+});
+
+final streamProvider = StreamProvider((ref) async* {
+  for (int i = 1; i <= 12; i++) {
+    await Future.delayed(
+      const Duration(
+        seconds: 1,
+      ),
+    );
+    yield i;
+  }
 });
 
 void main() {
